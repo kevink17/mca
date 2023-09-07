@@ -23,9 +23,14 @@ jobs:
           pip install . pyinstaller
           pyinstaller mca-macos.spec
 
+      - name: Zip app bundle
+        run: |
+          MCA_VERSION=$(cat ./mca/version.txt)
+          (cd dist && zip -r ../mca-macos-$MCA_VERSION.zip ./mca.app)
+
       - name: Upload macOS app
         uses: alexellis/upload-assets@0.4.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
-          asset_paths: '["./dist/mca-*.app"]'
+          asset_paths: '["./mca-macos-*.zip"]'
