@@ -1,6 +1,9 @@
 # -*- mode: python ; coding: utf-8 -*-
 from PyInstaller.utils.hooks import collect_data_files
 
+with open("./mca/version.txt", mode="r") as version_file:
+    version = version_file.read()
+
 block_cipher = None
 datas = [('mca/resources/gifs/*', 'mca/resources/gifs/'),
          ('mca/resources/icons/*', 'mca/resources/icons/'),
@@ -47,6 +50,6 @@ coll = COLLECT(exe,
                upx_exclude=[],
                name='mca')
 app = BUNDLE(coll,
-             name='mca.app',
+             name=f'mca-{version}.app',
              icon='mca.icns',
              bundle_identifier=None)
